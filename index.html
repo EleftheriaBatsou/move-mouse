@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Mouse Shadow</title>
+  <link href="https://afeld.github.io/emoji-css/emoji.css" rel="stylesheet">
+  
+  <link href="style.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+  <div class="hero">
+  <!-- insert emoji -->
+    <h1 contenteditable><i class="em em-dancers"></i>move!</h1>
+  </div>
+  
+  <div class="footer"> <!-- for footer -->
+      <h5><a href="http://www.eleftheriabatsou.com" target="_blank">Eleftheria Batsou</a> | <a href="http://codepen.io/EleftheriaBatsou" target="_blank">Projects</a></h5>
+    </div> <!-- end footer -->
+
+  
+
+<script>
+	const hero = document.querySelector('.hero');
+	const text = hero.querySelector('h1');
+	const walk = 500; // 100px
+
+	function shadow(e) {
+		const { offsetWidth: width, offsetHeight: height } = hero;
+		let { offsetX: x, offsetY: y } = e;
+		
+		//console.log(this, e.target);
+		if (this !== e.target) {
+			x = x + e.target.offsetLeft;
+			y = y + e.target.offsetTop;
+		}
+		
+		const xWalk = Math.round((x/width*walk) - (walk/2)); //this means that we have 100px but we go 50px left and 50px right.
+		const yWalk = Math.round((x/height*walk) - (walk/2)); //this means that we have 100px but we go 50px up and 50px down.
+		
+		text.style.textShadow = `
+		${xWalk}px ${yWalk}px 0 rgba(255,0,255,0.7),
+		${xWalk * -1}px ${yWalk}px 0 rgba(0,255,255,0.7),
+		${yWalk}px ${xWalk-1}px 0 rgba(0,255,0,0.7),
+		${yWalk * -1}px ${xWalk}px 0 rgba(0,0,255,0.7)
+		`;
+	}
+	
+	hero.addEventListener('mousemove', shadow);
+
+
+</script>
+</body>
+</html>
+
+<!-- learn hot to insert emojis: https://afeld.github.io/emoji-css/ 
+-->
